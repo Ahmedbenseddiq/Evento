@@ -12,7 +12,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $categories = Category::all()->sortDesc();
+        // dd($categories);
+        return view("category.index", ["categories"=> $categories]);
     }
 
     /**
@@ -20,7 +22,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view("category.create");
     }
 
     /**
@@ -28,7 +30,14 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            "name" => ["required","string","max:15"],
+        ]);
+
+        $data['user_id'] = 1;
+        $category = category::create($data);
+
+        return to_route("category.index")->with("message", "Category created successfully !!");
     }
 
     /**
@@ -36,15 +45,17 @@ class CategoryController extends Controller
      */
     public function show(category $category)
     {
-        //
-    }
+        // dd($category);      
+        return view("category.show", ['category'=> $category]);
+    }   
 
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(category $category)
     {
-        //
+        // dd($category->name);
+        return view("category.edit", ['category'=> $category]);
     }
 
     /**
@@ -52,7 +63,13 @@ class CategoryController extends Controller
      */
     public function update(Request $request, category $category)
     {
-        //
+        $data = $request->validate([
+            'name'=> ['required','string','max:15'],
+        ]);
+
+        $category->update($data);
+
+        return to_route("category.index")->with("message", "Category updated successfully !!"); 
     }
 
     /**
@@ -60,6 +77,7 @@ class CategoryController extends Controller
      */
     public function destroy(category $category)
     {
-        //
+        $category->delete();
+        return to_route("category.index")->with("message", "Category deleted successfully !!");
     }
 }

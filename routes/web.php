@@ -19,12 +19,12 @@ Route::get('/', function () {
 });
 
 
-Route::get('/category', [CategoryController::class, 'index']);
-Route::get('/category/create', [CategoryController::class,'create']);
-Route::post('/category', [CategoryController::class,'store']);
-Route::get('/catgeory/{id}', [CategoryController::class, 'show']);
-Route::get('category/{id}/edit', [CategoryController::class,'edit']);
-Route::put('/category/{id}', [CategoryController::class,'update']);
-Route::delete('/category/{id}', [CategoryController::class,'delete']);
+Route::get('/category', [CategoryController::class, 'index'])->name('category.index');
+Route::get('/category/create', [CategoryController::class,'create'])->name('category.create');
+Route::post('/category', [CategoryController::class,'store'])->name('category.store');
+Route::get('/catgeory/{category}', [CategoryController::class, 'show'])->name('category.show');
+Route::get('category/{category}/edit', [CategoryController::class,'edit'])->name('category.edit');
+Route::put('/category/{category}', [CategoryController::class,'update'])->name('category.update');
+Route::delete('/category/{category}', [CategoryController::class,'destroy'])->name('category.destroy');
 
 
