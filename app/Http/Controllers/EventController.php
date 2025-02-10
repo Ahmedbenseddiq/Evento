@@ -12,7 +12,9 @@ class EventController extends Controller
      */
     public function index()
     {
-        //
+        $events = event::all()->sortDesc();
+        dd($events);
+        return view("event.index", ['events' => $events]);
     }
 
     /**
@@ -20,7 +22,7 @@ class EventController extends Controller
      */
     public function create()
     {
-        //
+        return view('event.create');
     }
 
     /**
@@ -28,7 +30,20 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'title' => 'required',
+            'description' => 'required',
+            'date' => 'required',
+            'place' => 'required',
+            'seats_number' => 'required',
+            'category_id' => 'required',
+            'user_id' => 'required',
+        ]);
+
+        $data['user_id'] = $request->user()->id;
+        $data['category_id'] = 1;
+        event::create($data);
+        return to_route('event.index')->with('message', 'Event created successfully !!');
     }
 
     /**
