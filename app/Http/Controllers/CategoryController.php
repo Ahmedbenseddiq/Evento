@@ -13,7 +13,6 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::all()
-            ->where('user_id',request()->user()->id)
             ->sortDesc();
         // dd($categories);
         return view("category.index", ["categories"=> $categories]);
