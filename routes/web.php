@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\EventController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +30,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::put('/category/{category}', [CategoryController::class,'update'])->name('category.update');
     Route::delete('/category/{category}', [CategoryController::class,'destroy'])->name('category.destroy');
 
+    Route::get('/event', [EventController::class, 'index'])->name('event.index');
+    Route::get('event.create', [EventController::class, 'create'])->name('event.create');
+    Route::post('/event', [EventController::class, 'store'])->name('event.store');
+    Route::get('/event/{event}', [EventController::class, 'show'])->name('event.show');
+    Route::get('/event/{event}/edit', [EventController::class, 'edit'])->name('event.edit');
+    Route::put('/event/{event}', [EventController::class, 'update'])->name('event.update');
+    Route::delete('/event/{event}', [EventController::class, 'destroy'])->name('event.destroy');
 });
 
 Route::get('/dashboard', function () {
