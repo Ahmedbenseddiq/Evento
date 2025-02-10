@@ -12,7 +12,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::all()->sortDesc();
+        $categories = Category::all()
+            ->where('user_id',request()->user()->id)
+            ->sortDesc();
         // dd($categories);
         return view("category.index", ["categories"=> $categories]);
     }
@@ -34,7 +36,7 @@ class CategoryController extends Controller
             "name" => ["required","string","max:15"],
         ]);
 
-        $data['user_id'] = 1;
+        $data['user_id'] = $request->user()->id;
         $category = category::create($data);
 
         return to_route("category.index")->with("message", "Category created successfully !!");
@@ -45,7 +47,7 @@ class CategoryController extends Controller
      */
     public function show(category $category)
     {
-        // dd($category);      
+        // dd($category);     
         return view("category.show", ['category'=> $category]);
     }   
 
@@ -55,6 +57,9 @@ class CategoryController extends Controller
     public function edit(category $category)
     {
         // dd($category->name);
+        if($category->user_id != request()->user()->id){
+            abort(403);
+        } 
         return view("category.edit", ['category'=> $category]);
     }
 
@@ -77,6 +82,9 @@ class CategoryController extends Controller
      */
     public function destroy(category $category)
     {
+        if($category->user_id != request()->user()->id){
+            abort(403);
+        } 
         $category->delete();
         return to_route("category.index")->with("message", "Category deleted successfully !!");
     }
