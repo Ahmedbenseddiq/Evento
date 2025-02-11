@@ -13,7 +13,7 @@ class EventController extends Controller
     public function index()
     {
         $events = event::all()->sortDesc();
-        dd($events);
+        // dd($events);
         return view("event.index", ['events' => $events]);
     }
 
@@ -41,7 +41,7 @@ class EventController extends Controller
         ]);
 
         $data['user_id'] = $request->user()->id;
-        $data['category_id'] = 1;
+        // $data['category_id'] = 1;
         event::create($data);
         return to_route('event.index')->with('message', 'Event created successfully !!');
     }

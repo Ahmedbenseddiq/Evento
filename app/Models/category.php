@@ -13,4 +13,9 @@ class category extends Model
         "name",
         "user_id",
     ];
+
+    public function events()
+    {
+        return $this->hasMany(event::class);
+    }
 }
