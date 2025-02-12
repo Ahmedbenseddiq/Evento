@@ -17,7 +17,7 @@ class reservationFactory extends Factory
     public function definition(): array
     {
         return [
-            "seats_reserved" => fake()->between(1, 10)->randomDigitNotNull(),
+            "seats_reserved" => fake()->numberBetween(1, 10),
             "status" => false,
             "event_id" => 1,
             "user_id" => 1,
