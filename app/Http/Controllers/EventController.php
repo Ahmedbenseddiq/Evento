@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\category;
 use App\Models\event;
 use Illuminate\Http\Request;
 
@@ -22,7 +23,8 @@ class EventController extends Controller
      */
     public function create()
     {
-        return view('event.create');
+        $categories = category::all();
+        return view('event.create' , ['categories' => $categories]);
     }
 
     /**
@@ -30,6 +32,7 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request); 
         $data = $request->validate([
             'title' => 'required',
             'description' => 'required',
@@ -37,11 +40,12 @@ class EventController extends Controller
             'place' => 'required',
             'seats_number' => 'required',
             'category_id' => 'required',
-            'user_id' => 'required',
+            
         ]);
 
         $data['user_id'] = $request->user()->id;
         // $data['category_id'] = 1;
+        
         event::create($data);
         return to_route('event.index')->with('message', 'Event created successfully !!');
     }
@@ -51,7 +55,7 @@ class EventController extends Controller
      */
     public function show(event $event)
     {
-        //
+        return view('event.show', ['event' => $event]);
     }
 
     /**
@@ -59,7 +63,11 @@ class EventController extends Controller
      */
     public function edit(event $event)
     {
-        //
+        if($event->user_id != request()->user()->id){
+            abort(403);
+        }
+        $categories = category::all();
+        return view('event.edit', ['event' => $event, 'categories' => $categories]);
     }
 
     /**
@@ -67,7 +75,21 @@ class EventController extends Controller
      */
     public function update(Request $request, event $event)
     {
-        //
+        $data = $request->validate([
+            'title' => 'required',
+            'description' => 'required',
+            'date' => 'required',
+            'place' => 'required',
+            'seats_number' => 'required',
+            'category_id' => 'required',
+            
+        ]);
+
+        $data['user_id'] = $request->user()->id;
+        // $data['category_id'] = 1;
+        
+        $event->update($data);
+        return to_route('event.index')->with('message', 'Event updated successfully !!');
     }
 
     /**
@@ -75,6 +97,7 @@ class EventController extends Controller
      */
     public function destroy(event $event)
     {
-        //
+        $event->delete();
+        return to_route('event.index')->with('message', 'Event deleted successfully !!');
     }
 }
