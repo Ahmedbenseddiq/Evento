@@ -5,18 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class category extends Model
+class reservation extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        "name",
+        "seats_reserved",
+        "status",
+        "event_id",
         "user_id",
     ];
 
     public function event()
     {
-        return $this->hasMany(event::class);
+        return $this->belongsTo(Event::class);
     }
 
     public function user()
