@@ -84,6 +84,7 @@ class ReservationController extends Controller
      */
     public function destroy(reservation $reservation)
     {
-        //
+        $reservation->delete();
+        return to_route("reservation.index")->with("message", "Reservation deleted successfully !!");
     }
 }
