@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\ReservationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,6 +38,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/event/{event}/edit', [EventController::class, 'edit'])->name('event.edit');
     Route::put('/event/{event}', [EventController::class, 'update'])->name('event.update');
     Route::delete('/event/{event}', [EventController::class, 'destroy'])->name('event.destroy');
+
+    Route::get('/reservation', [ReservationController::class, 'index'])->name('reservation.index');
+    Route::get('/reservation/create', [ReservationController::class, 'create'])->name('reservation.create');
+    Route::post('/reservation', [ReservationController::class, 'store'])->name('reservation.store');
+    Route::get('/reservation/{reservation}', [ReservationController::class, 'show'])->name('reservation.show');
+    Route::get('/reservation/{$reservation}/edit',[ReservationController::class, 'edit'])->name('reservation.edit');
+    Route::put('/reservation/{reservation}', [ReservationController::class, 'update'])->name('reservation.update');
+    Route::delete('/reservation/{reservation}', [ReservationController::class, 'destroy'])->name('reservation.destroy');
 });
 
 Route::get('/dashboard', function () {
