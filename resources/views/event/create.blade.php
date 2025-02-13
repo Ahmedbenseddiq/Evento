@@ -1,4 +1,4 @@
-<x-layout>
+<x-app-layout>
     <h2>Create Event</h2>
     <form action="{{ route('event.store') }}" method="POST">
         @csrf
@@ -28,4 +28,4 @@
         <button type="submit">Create</button>
     </form>
     <button onclick="location.href='{{ route('event.index') }}'">Back to List</button>
-</x-layout>
+</x-app-layout>

@@ -1,4 +1,4 @@
-<x-layout>
+<x-app-layout>
     <h2>Create Reservation</h2>
     <form action="{{ route('reservation.store') }}" method="POST">
         @csrf
@@ -7,4 +7,4 @@
         <button type="submit">Create</button>
     </form>
     <button onclick="location.href='{{ route('reservation.index') }}'">Back to List</button>
-</x-layout>
+</x-app-layout>

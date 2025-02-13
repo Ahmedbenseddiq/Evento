@@ -1,5 +1,5 @@
 
-<x-layout>
+<x-app-layout>
     <h2>reservation Details</h2>
     <p><strong>ID:</strong> {{ $reservation->id }} </p>
     <p><strong>Event:</strong> {{ $reservation->event->title }} </p>
@@ -16,5 +16,5 @@
         @method('DELETE')
         <button type="submit">Delete</button>
     </from>
-</x-layout>
+</x-app-layout>
 

@@ -1,4 +1,4 @@
-<x-layout>
+<x-app-layout>
     <h2>Reservations</h2>
     <button onclick="location.href='{{ route('reservation.create') }}'">Create reservation</button>
     <table>
@@ -36,5 +36,5 @@
         </tbody>  
         @endforeach
     </table>
-</x-layout>
+</x-app-layout>
 

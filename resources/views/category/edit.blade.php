@@ -1,4 +1,4 @@
-<x-layout>
+<x-app-layout>
     <h2>Edit Category</h2>
     <form action="{{ route('category.update', $category) }}" method="POST">
         @csrf
@@ -8,5 +8,5 @@
         <button type="submit">Update</button>
     </form>
     <button onclick="location.href='{{ route('category.index')}}'">Back to List</button>
-</x-layout>
+</x-app-layout>
 

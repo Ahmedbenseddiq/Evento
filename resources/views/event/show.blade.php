@@ -1,5 +1,5 @@
 
-<x-layout>
+<x-app-layout>
     <h2>Event Details</h2>
     <p><strong>ID:</strong>{{$event->id}}</p>
     <p><strong>Title:</strong>{{$event->title}}</p>
@@ -15,5 +15,5 @@
         @method('DELETE')
         <button type="submit">Delete</button>
     </from>
-</x-layout> 
+</x-app-layout> 
 

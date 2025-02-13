@@ -1,5 +1,5 @@
 
-<x-layout>
+<x-app-layout>
     <h2>Category Details</h2>
     <p><strong>ID:</strong> {{ $category->id }} </p>
     <p><strong>Name:</strong> {{ $category->name }} </p>
@@ -10,5 +10,5 @@
         @method('DELETE')
         <button type="submit">Delete</button>
     </from>
-</x-layout>
+</x-app-layout>
 
