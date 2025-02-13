@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\ReservationController;
+use App\Http\Controllers\TicketController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,6 +47,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/reservation/{reservation}/edit',[ReservationController::class, 'edit'])->name('reservation.edit');
     Route::put('/reservation/{reservation}', [ReservationController::class, 'update'])->name('reservation.update');
     Route::delete('/reservation/{reservation}', [ReservationController::class, 'destroy'])->name('reservation.destroy');
+
+    Route::get('/ticket', [TicketController::class, 'index'])->name('ticket.index');
+    Route::get('/ticket/create', [TicketController::class, 'create'])->name('ticket.create');
+    Route::post('/ticket', [TicketController::class, 'store'])->name('ticket.store');
+    Route::get('/ticket/{ticket}', [TicketController::class, 'show'])->name('ticket.show');
+    Route::get('/ticket/{ticket}/edit',[TicketController::class, 'edit'])->name('ticket.edit');
+    Route::put('/ticket/{ticket}', [TicketController::class, 'update'])->name('ticket.update');
+    Route::delete('/ticket/{ticket}', [TicketController::class, 'destroy'])->name('ticket.destroy');
+
+    
 });
 
 Route::get('/dashboard', function () {
