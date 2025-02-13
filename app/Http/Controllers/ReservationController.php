@@ -12,7 +12,7 @@ class ReservationController extends Controller
      */
     public function index()
     {
-        $reservations = Reservation::all();
+        $reservations = Reservation::all()->sortDesc();
         return view("reservation.index" , ["reservations" => $reservations]);
     }
 
@@ -29,7 +29,19 @@ class ReservationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request);
+        $data = $request->validate([
+            "seats_reserved" => "required",
+            // "event_id" => "required",
+            // "user_id" => "required",
+        ]);
+        
+        $data["user_id"] = $request->user()->id;
+        $data["event_id"] = 1;
+
+        reservation::create($data);
+
+        return to_route("reservation.index")->with("message", "Reservation created successfully !!");
     }
 
     /**
@@ -45,7 +57,7 @@ class ReservationController extends Controller
      */
     public function edit(reservation $reservation)
     {
-        //
+        return view("reservation.edit", ["reservation" => $reservation]);
     }
 
     /**
@@ -53,7 +65,18 @@ class ReservationController extends Controller
      */
     public function update(Request $request, reservation $reservation)
     {
-        //
+        $data = $request->validate([
+            "seats_reserved" => "required",
+            // "event_id" => "required",
+            // "user_id" => "required",
+        ]);
+        
+        $data["user_id"] = $request->user()->id;
+        $data["event_id"] = 1;
+
+        $reservation->update($data);
+
+        return to_route("reservation.index")->with("message", "Reservation updated successfully !!");
     }
 
     /**

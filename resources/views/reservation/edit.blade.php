@@ -1,12 +1,11 @@
 <x-layout>
-    <h2>Edit Category</h2>
-    <form action="{{ route('category.update', $category) }}" method="POST">
+    <h2>Create Reservation</h2>
+    <form action="{{ route('reservation.update', $reservation) }}" method="POST">
         @csrf
         @method('PUT')
-        <label for="name">Category Name:</label>
-        <input type="text" id="name" name="name" value="{{$category->name}}" required>
-        <button type="submit">Update</button>
+        <label for="name">How many seats you want to reserve: </label>
+        <input type="number" id="seats_reserved" value="{{$reservation->seats_reserved}}" name="seats_reserved" required>
+        <button type="submit">Create</button>
     </form>
-    <button onclick="location.href='{{ route('category.index')}}'">Back to List</button>
+    <button onclick="location.href='{{ route('reservation.index') }}'">Back to List</button>
 </x-layout>
-
