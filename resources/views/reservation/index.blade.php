@@ -9,7 +9,6 @@
                 <th>Reserved Seats</th>
                 <th>status</th>
                 <th>event</th>
-                <th>user id</th>
                 <th>user name</th>
                 <th>created at</th>
                 <th>actionn</th>
@@ -22,7 +21,6 @@
                 <td>{{$reservation->seats_reserved}}</td>
                 <td>{{$reservation->status}}</td>
                 <td>{{$reservation->event->title}}</td>
-                <td>{{$reservation->user_id}}</td>
                 <td>{{$reservation->user->name}}</td>
                 <td>{{$reservation->created_at}}</td>
                 <td>

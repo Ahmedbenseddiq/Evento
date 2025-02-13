@@ -25,4 +25,8 @@ class reservation extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function ticker(){
+        return $this->belongsTo(ticket::class);
+    }
 }
