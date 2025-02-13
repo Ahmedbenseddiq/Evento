@@ -12,7 +12,8 @@ class TicketController extends Controller
      */
     public function index()
     {
-        //
+        $tickets = ticket::all()->sortDesc();
+        return view ("ticket.index", ["tickets"=> $tickets]);
     }
 
     /**
@@ -20,7 +21,7 @@ class TicketController extends Controller
      */
     public function create()
     {
-        //
+        return view ("ticket.create");
     }
 
     /**
@@ -28,7 +29,12 @@ class TicketController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            "reservation_id" => "required",
+        ]);
+
+        $ticket = ticket::create($data);
+        return to_route("category.index")->with("message", "Ticket created successfully");
     }
 
     /**
@@ -36,7 +42,7 @@ class TicketController extends Controller
      */
     public function show(ticket $ticket)
     {
-        //
+        return view ("ticket.show", ["ticket"=> $ticket]);
     }
 
     /**
@@ -44,7 +50,7 @@ class TicketController extends Controller
      */
     public function edit(ticket $ticket)
     {
-        //
+        return view ("ticket.edit", ["ticket"=> $ticket]);
     }
 
     /**
@@ -52,7 +58,12 @@ class TicketController extends Controller
      */
     public function update(Request $request, ticket $ticket)
     {
-        //
+        $data = $request->validate([
+            "reservation_id" => "required",
+        ]);
+
+        $$ticket->update($data);
+        return to_route("category.index")->with("message", "Ticket updated successfully");
     }
 
     /**
@@ -60,6 +71,7 @@ class TicketController extends Controller
      */
     public function destroy(ticket $ticket)
     {
-        //
+        $ticket->delete();
+        return to_route("category.index")->with("message", "Ticket deleted successfully");
     }
 }
