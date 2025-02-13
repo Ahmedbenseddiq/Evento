@@ -6,6 +6,7 @@ namespace Database\Seeders;
 use App\Models\category;
 use App\Models\event;
 use App\Models\reservation;
+use App\Models\ticket;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -29,5 +30,7 @@ class DatabaseSeeder extends Seeder
         event::factory(10)->create();
 
         reservation::factory(10)->create();
+
+        ticket::factory(10)->create();
     }
 }
