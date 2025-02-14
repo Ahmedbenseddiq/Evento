@@ -18,6 +18,7 @@ return new class extends Migration
             $table->date('date');
             $table->text('place');
             $table->integer('seats_number');
+            $table->boolean('is_confirmed')->default(false);
             $table->foreignId('category_id')->constrained('categories');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();
