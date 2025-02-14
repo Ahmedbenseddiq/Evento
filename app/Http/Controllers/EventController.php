@@ -11,11 +11,17 @@ class EventController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $events = event::all()->sortDesc();
+        $categoryId = $request->query('category_id');
+
+        $events = Event::when($categoryId, function ($query, $categoryId) {
+            return $query->where('category_id', $categoryId);
+        })->orderBy('created_at', 'desc')->get();
+
+        $categories = category::all();
         // dd($events);
-        return view("event.index", ['events' => $events]);
+        return view("event.index", ['events' => $events], ['categories' => $categories]);
     }
 
     /**
@@ -24,7 +30,7 @@ class EventController extends Controller
     public function create()
     {
         $categories = category::all();
-        return view('event.create' , ['categories' => $categories]);
+        return view('event.create', ['categories' => $categories]);
     }
 
     /**
@@ -40,12 +46,12 @@ class EventController extends Controller
             'place' => 'required',
             'seats_number' => 'required',
             'category_id' => 'required',
-            
+
         ]);
 
         $data['user_id'] = $request->user()->id;
         // $data['category_id'] = 1;
-        
+
         event::create($data);
         return to_route('event.index')->with('message', 'Event created successfully !!');
     }
@@ -63,7 +69,7 @@ class EventController extends Controller
      */
     public function edit(event $event)
     {
-        if($event->user_id != request()->user()->id){
+        if ($event->user_id != request()->user()->id) {
             abort(403);
         }
         $categories = category::all();
@@ -82,12 +88,12 @@ class EventController extends Controller
             'place' => 'required',
             'seats_number' => 'required',
             'category_id' => 'required',
-            
+
         ]);
 
         $data['user_id'] = $request->user()->id;
         // $data['category_id'] = 1;
-        
+
         $event->update($data);
         return to_route('event.index')->with('message', 'Event updated successfully !!');
     }

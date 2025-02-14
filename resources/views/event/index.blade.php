@@ -1,6 +1,17 @@
 <x-app-layout>
     <h2>Events</h2>
     <button onclick="location.href='{{ route('event.create') }}'">Create event</button>
+    <form method="GET" action="{{ route('event.index') }}">
+        <select name="category_id" onchange="this.form.submit()">
+            <option value="">All Categories</option>
+            @foreach ($categories as $category)
+                <option value="{{ $category->id }}" {{ request('category_id') == $category->id ? 'selected' : '' }}>
+                    {{ $category->name }}
+                </option>
+            @endforeach
+        </select>
+    </form>
+    
     <table>
         
         <thead>
