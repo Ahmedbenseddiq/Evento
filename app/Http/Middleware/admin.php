@@ -19,7 +19,7 @@ class admin
     public function handle(Request $request, Closure $next): Response
     {
         if(!Auth::guard("admin")->check()){
-            return to_route("admin.login");
+            return to_route("admin.login")->with("message","You are not authorized to access this page");
         }
         return $next($request);
     }
